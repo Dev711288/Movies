@@ -111,7 +111,6 @@ st.markdown(
             margin-bottom: 1rem;
         }
 
-        /* Sidebar selectbox & slider text */
         .css-1p6f50i, .css-1avcm0n {
             color: #ffffff !important;
         }
