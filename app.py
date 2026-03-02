@@ -487,16 +487,12 @@ elif st.session_state.view == "details":
     poster_col, details_col = st.columns([1, 2.5], gap="large")
 
     with poster_col:
-        st.markdown("<div class='card' style='padding: 0; overflow: hidden;'>", unsafe_allow_html=True)
         if data.get("poster_url"):
             st.image(data["poster_url"], use_column_width=True)
         else:
             st.write("🖼️ No poster")
-        st.markdown("</div>", unsafe_allow_html=True)
 
     with details_col:
-        st.markdown("<div class='card' style='padding: 20px;'>", unsafe_allow_html=True)
-        
         st.markdown(f"<h1 style='color: #ffd700; margin: 0 0 10px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>{data.get('title','')}</h1>", unsafe_allow_html=True)
         
         col1, col2 = st.columns(2)
@@ -519,8 +515,6 @@ elif st.session_state.view == "details":
         st.markdown("**📝 Overview**")
         overview = data.get("overview") or "No overview available."
         st.markdown(f"<div style='line-height: 1.6; color: #e2e8f0;'>{overview}</div>", unsafe_allow_html=True)
-        
-        st.markdown("</div>", unsafe_allow_html=True)
 
     if data.get("backdrop_url"):
         st.markdown("#### Backdrop")

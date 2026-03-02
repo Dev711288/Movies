@@ -172,6 +172,7 @@ def build_title_to_idx_map(indices: Any) -> Dict[str, int]:
             title_to_idx[_norm_title(k)] = int(v)
         return title_to_idx
 
+    # pandas Series or similar mapping
     try:
         for k, v in indices.items():
             title_to_idx[_norm_title(k)] = int(v)
@@ -246,48 +247,28 @@ async def attach_tmdb_card_by_title(title: str) -> Optional[TMDBMovieCard]:
         return None
 
 
-import dill
-
 @app.on_event("startup")
 def load_pickles():
-    """
-    Load all required pickles for the recommender API:
-    - df.pkl : DataFrame with movie data
-    - indices.pkl : title -> index mapping
-    - tfidf_matrix.pkl : TF-IDF sparse matrix
-    - recommend.pkl : TF-IDF vectorizer or recommendation function
-    """
-    global df, indices_obj, tfidf_matrix, tfidf_obj, TITLE_TO_IDX
+    global df, indices_obj, tfidf_matrix, TITLE_TO_IDX
 
-    try:
-        with open(DF_PATH, "rb") as f:
-            df = pickle.load(f)
-        if df is None or "title" not in df.columns:
-            raise RuntimeError("df.pkl must contain a DataFrame with a 'title' column")
-    except Exception as e:
-        raise RuntimeError(f"Failed to load df.pkl: {e}")
+    with open(DF_PATH, "rb") as f:
+        df = pickle.load(f)
 
-    try:
-        with open(INDICES_PATH, "rb") as f:
-            indices_obj = pickle.load(f)
-        TITLE_TO_IDX = build_title_to_idx_map(indices_obj)
-    except Exception as e:
-        raise RuntimeError(f"Failed to load indices.pkl: {e}")
+    with open(INDICES_PATH, "rb") as f:
+        indices_obj = pickle.load(f)
 
-    try:
-        with open(TFIDF_MATRIX_PATH, "rb") as f:
-            tfidf_matrix = pickle.load(f)
-    except Exception as e:
-        raise RuntimeError(f"Failed to load tfidf_matrix.pkl: {e}")
+    with open(TFIDF_MATRIX_PATH, "rb") as f:
+        tfidf_matrix = pickle.load(f)
 
-    try:
-        with open(TFIDF_PATH, "rb") as f:
-            tfidf_obj = dill.load(f)
-    except Exception as e:
-        tfidf_obj = None
-        print(f"Warning: Failed to load recommend.pkl: {e}. TF-IDF object will be unavailable.")
+    TITLE_TO_IDX = build_title_to_idx_map(indices_obj)
 
-    print("Pickles loaded successfully.")
+    if df is None or "title" not in df.columns:
+        raise RuntimeError("df.pkl must contain a DataFrame with a 'title' column")
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
 
 @app.get("/home", response_model=List[TMDBMovieCard])
 async def home(
@@ -335,6 +316,7 @@ async def tmdb_search(
 async def movie_details_route(tmdb_id: int):
     return await tmdb_movie_details(tmdb_id)
 
+
 @app.get("/recommend/genre", response_model=List[TMDBMovieCard])
 async def recommend_genre(
     tmdb_id: int = Query(...),
@@ -363,6 +345,7 @@ async def recommend_genre(
     cards = await tmdb_cards_from_results(discover.get("results", []), limit=limit)
     return [c for c in cards if c.tmdb_id != tmdb_id]
 
+
 @app.get("/recommend/tfidf")
 async def recommend_tfidf(
     title: str = Query(..., min_length=1),
@@ -370,6 +353,7 @@ async def recommend_tfidf(
 ):
     recs = tfidf_recommend_titles(title, top_n=top_n)
     return [{"title": t, "score": s} for t, s in recs]
+
 
 @app.get("/movie/search", response_model=SearchBundleResponse)
 async def search_bundle(
