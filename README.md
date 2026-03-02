@@ -28,3 +28,4 @@ Devflix is a content-based movie recommendation system that allows users to sear
 (Add your screenshot inside an `assets` folder and update the file path below)
 
 ```markdown
+![Devflix Home](homepage.png)
