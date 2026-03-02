@@ -46,7 +46,3 @@ It’s ideal for learning recommendation systems, Python data manipulation, and 
 1. **Clone the repository**
    ```bash
    git clone https://github.com/DevHajariwala116/Movies.git
-
-## 🖥️ Application Preview
-
-![Devflix Home](homepage.png)

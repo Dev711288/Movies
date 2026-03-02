@@ -6,11 +6,9 @@ TMDB_IMG = "https://image.tmdb.org/t/p/w500"
 
 st.set_page_config(page_title="Devflix", page_icon="🎬", layout="wide")
 
-# Enhanced CSS with modern design improvements
 st.markdown(
     """
 <style>
-/* ----------------- Page ----------------- */
 .block-container {
     padding-top: 1rem;
     padding-bottom: 2rem;
@@ -18,7 +16,6 @@ st.markdown(
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* ----------------- Modern Gradient Background ----------------- */
 body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
@@ -43,7 +40,6 @@ body {
     border-color: rgba(255,255,255,0.2);
 }
 
-/* ----------------- Movie Title ----------------- */
 .movie-title {
     font-size: 1rem;
     line-height: 1.3rem;
@@ -56,14 +52,12 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* ----------------- Metadata ----------------- */
 .small-muted {
     color: #93c5fd;   /* Soft blue text */
     font-size: 0.85rem;
     font-weight: 500;
 }
 
-/* ----------------- Enhanced Buttons ----------------- */
 .stButton>button {
     background: linear-gradient(135deg, #667eea, #764ba2);
     color: white;
@@ -84,14 +78,12 @@ body {
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
 }
 
-/* ----------------- Headers ----------------- */
 h1, h2, h3, h4 {
     color: #ffffff;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     font-weight: 700;
 }
 
-/* ----------------- Enhanced Divider ----------------- */
 hr {
     border: 0;
     border-top: 1px solid rgba(255,255,255,0.2);
@@ -99,7 +91,6 @@ hr {
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
 }
 
-/* ----------------- Images ----------------- */
 img {
     border-radius: 12px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.5);
@@ -109,14 +100,12 @@ img:hover {
     transform: scale(1.05);
 }
 
-/* ----------------- Sidebar ----------------- */
 .css-1d391kg {
     background: linear-gradient(180deg, #1a2a4a, #162340) !important;
     color: #ffffff !important;
     border-right: 1px solid rgba(255,255,255,0.1);
 }
 
-/* Sidebar headings */
 .css-1lsmgbg h2 {
     color: #ffd700 !important;
     font-size: 1.2rem;
@@ -128,7 +117,6 @@ img:hover {
     color: #ffffff !important;
 }
 
-/* ----------------- Search Input Enhancement ----------------- */
 .stTextInput > div > div > input {
     background-color: rgba(255,255,255,0.1) !important;
     border: 1px solid rgba(255,255,255,0.2) !important;
@@ -144,7 +132,6 @@ img:hover {
     background-color: rgba(255,255,255,0.15) !important;
 }
 
-/* ----------------- Selectbox Enhancement ----------------- */
 .stSelectbox > div > div > select {
     background-color: rgba(255,255,255,0.1) !important;
     border: 1px solid rgba(255,255,255,0.2) !important;
@@ -157,7 +144,6 @@ img:hover {
     box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2) !important;
 }
 
-/* ----------------- Slider Enhancement ----------------- */
 .stSlider > div > div > div > div {
     background-color: rgba(255,255,255,0.2) !important;
 }
@@ -165,7 +151,6 @@ img:hover {
     background-color: #667eea !important;
 }
 
-/* ----------------- Info/Warning/Error Messages ----------------- */
 .stAlert {
     border-radius: 12px;
     border: 1px solid rgba(255,255,255,0.2);
@@ -176,7 +161,6 @@ img:hover {
     color: #ffffff !important;
 }
 
-/* ----------------- Grid Animation ----------------- */
 [data-testid="column"] {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -185,13 +169,11 @@ img:hover {
     box-shadow: 0 8px 25px rgba(0,0,0,0.3);
 }
 
-/* ----------------- Loading Animation ----------------- */
 .stSpinner > div {
     border-top-color: #667eea !important;
     border-right-color: #764ba2 !important;
 }
 
-/* ----------------- Scrollbar ----------------- */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -370,7 +352,6 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("### 🏠 Home Feed (only home)")
     
-    # Enhanced category selection with icons
     category_options = {
         "trending": "🔥 Trending",
         "popular": "⭐ Popular", 
@@ -386,7 +367,6 @@ with st.sidebar:
         index=0,
     )
     
-    # Enhanced grid columns slider with better labels
     grid_cols = st.slider(
         "Grid columns", 
         min_value=3, 
@@ -395,7 +375,6 @@ with st.sidebar:
         help="Adjust the number of movie cards per row"
     )
     
-    # Add some visual separation and info
     st.divider()
     st.markdown("### 🎯 Quick Actions")
     if st.button("🔄 Refresh Feed"):
@@ -414,7 +393,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Add a subtle animated banner
 st.markdown(
     """
     <div style="
@@ -496,7 +474,6 @@ elif st.session_state.view == "details":
             goto_home()
         st.stop()
 
-    # Top bar
     a, b = st.columns([3, 1])
     with a:
         st.markdown("### 📄 Movie Details")
@@ -509,7 +486,6 @@ elif st.session_state.view == "details":
         st.error(f"Could not load details: {err or 'Unknown error'}")
         st.stop()
 
-    # Enhanced movie details layout with better visual hierarchy
     poster_col, details_col = st.columns([1, 2.5], gap="large")
 
     with poster_col:
@@ -523,10 +499,8 @@ elif st.session_state.view == "details":
     with details_col:
         st.markdown("<div class='card' style='padding: 20px;'>", unsafe_allow_html=True)
         
-        # Movie title with enhanced styling
         st.markdown(f"<h1 style='color: #ffd700; margin: 0 0 10px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>{data.get('title','')}</h1>", unsafe_allow_html=True)
         
-        # Metadata section with better organization
         col1, col2 = st.columns(2)
         
         with col1:
@@ -544,7 +518,6 @@ elif st.session_state.view == "details":
         
         st.markdown("---")
         
-        # Overview section
         st.markdown("**📝 Overview**")
         overview = data.get("overview") or "No overview available."
         st.markdown(f"<div style='line-height: 1.6; color: #e2e8f0;'>{overview}</div>", unsafe_allow_html=True)
@@ -566,7 +539,6 @@ elif st.session_state.view == "details":
         )
 
         if not err2 and bundle:
-            # TF-IDF Recommendations
             tfidf_cards = to_cards_from_tfidf_items(bundle.get("tfidf_recommendations"))
             if tfidf_cards:
                 st.markdown("#### 🔎 Similar Movies (TF-IDF)")
@@ -579,7 +551,6 @@ elif st.session_state.view == "details":
             else:
                 st.info("No TF-IDF recommendations found.")
 
-            # Genre Recommendations
             genre_cards = bundle.get("genre_recommendations", [])
             if genre_cards:
                 st.markdown("#### 🎭 More Like This (Genre)")
