@@ -11,14 +11,14 @@ Devflix is a content-based movie recommendation system that allows users to sear
 
 # 🎬 Movies Recommendation System
 
-A simple and intuitive **movie recommendation system** built using Python.  
+>A simple and intuitive **movie recommendation system** built using Python.  
 This project allows users to input a movie name and get a list of similar movies based on data and similarity metrics.
 
 ---
 
 ## 🧠 About The Project
 
-This repository contains a movie recommendation engine that uses natural language processing (NLP) and vector similarity to suggest similar films.  
+>This repository contains a movie recommendation engine that uses natural language processing (NLP) and vector similarity to suggest similar films.  
 It’s ideal for learning recommendation systems, Python data manipulation, and basic machine learning techniques.
 
 ### Features
@@ -46,7 +46,7 @@ Make sure you have the following installed on your machine:
 1. **Clone the repository**
    ```bash
    git clone https://github.com/DevHajariwala116/Movies.git
-   
+
 ## 🖥️ Application Preview
 
 ![Devflix Home](homepage.png)
