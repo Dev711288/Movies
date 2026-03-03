@@ -387,7 +387,7 @@ with st.sidebar:
 
 st.title("🎬 Devflix Movie's")
 st.markdown(
-    "<div class='small-muted'>Type keyword → dropdown suggestions + matching results → open → details + recommendations</div>",
+    "<div class='small-muted'>Exploring the world of movies with Devflix</div>",
     unsafe_allow_html=True,
 )
 
