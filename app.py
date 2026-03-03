@@ -258,12 +258,12 @@ def poster_grid(cards, cols=6, key_prefix="grid"):
                 else:
                     st.write("🖼️ No poster")
 
-                if st.button("Open", key=f"{key_prefix}_{r}_{c}_{idx}_{tmdb_id}"):
+                if st.button("Watch Now", key=f"{key_prefix}_{r}_{c}_{idx}_{tmdb_id}"):
                     if tmdb_id:
                         goto_details(tmdb_id)
 
                 st.markdown(
-                    f"<div class='movie-title'>{title}</div>", unsafe_allow_html=True
+                    f"<div class='movie-title' style='text-align: center;'>{title}</div>", unsafe_allow_html=True
                 )
 
 
