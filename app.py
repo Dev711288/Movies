@@ -586,11 +586,8 @@ with st.sidebar:
 
     st.markdown("---")
 
-    if st.button("🔄  Refresh Feed"):
-        st.rerun()
-
     st.markdown(
-        "<div style='font-size:0.75rem;color:#2A3A50;margin-top:1.5rem;"
+        "<div style='font-size:0.75rem;color:smokywhite;margin-top:1.5rem;"
         "line-height:1.6;'>Powered by TMDB API.<br>Crafted by Devflix.</div>",
         unsafe_allow_html=True,
     )
