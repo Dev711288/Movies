@@ -4,6 +4,7 @@ from typing import Optional
 
 API_BASE = "https://movie-rec-466x.onrender.com" or "http://127.0.0.1:8000"
 TMDB_IMG = "https://image.tmdb.org/t/p/w500"
+NO_POSTER_URL = "https://dummyimage.com/500x750/0f172a/cbd5e1.png&text=No+Poster"
 
 st.set_page_config(page_title="Devflix", page_icon="🎬", layout="wide")
 
@@ -13,15 +14,15 @@ st.markdown(
 
     <style>
         html, body, [data-testid="stAppViewContainer"] {
-            background: #080C14 !important;
+            background: radial-gradient(circle at 20% 10%, #2B0C12 0%, #13070A 35%, #090909 100%) !important;
         }
 
         [data-testid="stAppViewContainer"] > .main {
-            background: #080C14;
+            background: transparent;
         }
 
         .block-container {
-            padding: 2rem 2.5rem 4rem !important;
+            padding: 4.2rem 2.5rem 4rem !important;
             max-width: 1600px !important;
             font-family: 'DM Sans', sans-serif;
         }
@@ -33,49 +34,7 @@ st.markdown(
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
             pointer-events: none;
             z-index: 0;
-            opacity: 0.35;
-        }
-
-        [data-testid="stSidebar"] {
-            background: #0D1520 !important;
-            border-right: 1px solid rgba(255,255,255,0.06) !important;
-        }
-
-        [data-testid="stSidebar"] .stMarkdown p,
-        [data-testid="stSidebar"] label,
-        [data-testid="stSidebar"] span {
-            color: #8A9BB5 !important;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.85rem;
-        }
-
-        [data-testid="stSidebar"] h2,
-        [data-testid="stSidebar"] h3 {
-            color: #E8F0FF !important;
-            font-family: 'Bebas Neue', sans-serif;
-            letter-spacing: 3px;
-            font-size: 1.3rem !important;
-        }
-
-        [data-testid="stSidebar"] .stButton > button {
-            background: rgba(255,255,255,0.04) !important;
-            border: 1px solid rgba(255,255,255,0.08) !important;
-            color: #C4D3E8 !important;
-            border-radius: 10px !important;
-            font-family: 'DM Sans', sans-serif !important;
-            font-weight: 600 !important;
-            letter-spacing: 0.5px;
-            width: 100% !important;
-            transition: all 0.2s ease !important;
-            padding: 0.55rem 1rem !important;
-            font-size: 0.9rem !important;
-            box-shadow: none !important;
-        }
-        [data-testid="stSidebar"] .stButton > button:hover {
-            background: rgba(224, 176, 74, 0.12) !important;
-            border-color: rgba(224, 176, 74, 0.35) !important;
-            color: #E0B04A !important;
-            transform: translateX(4px) !important;
+            opacity: 0.18;
         }
 
         .devflix-title {
@@ -101,40 +60,18 @@ st.markdown(
             margin-top: 4px;
         }
 
-        .stTextInput > div > div > input {
-            background: rgba(255,255,255,0.04) !important;
-            border: 1px solid rgba(255,255,255,0.1) !important;
-            border-radius: 14px !important;
-            color: #E8F0FF !important;
-            padding: 14px 20px !important;
-            font-size: 1rem !important;
-            font-family: 'DM Sans', sans-serif !important;
-            font-weight: 300 !important;
-            letter-spacing: 0.3px;
-            transition: all 0.3s ease !important;
-            backdrop-filter: blur(10px);
-        }
-        .stTextInput > div > div > input::placeholder {
-            color: #3E5068 !important;
-        }
-        .stTextInput > div > div > input:focus {
-            border-color: rgba(224, 176, 74, 0.5) !important;
-            background: rgba(255,255,255,0.07) !important;
-            box-shadow: 0 0 0 3px rgba(224, 176, 74, 0.08) !important;
-        }
-
         .stSelectbox > div > div {
-            background: rgba(255,255,255,0.04) !important;
-            border: 1px solid rgba(255,255,255,0.1) !important;
-            border-radius: 12px !important;
-            color: #E8F0FF !important;
+            background: rgba(24,24,24,0.95) !important;
+            border: 1px solid rgba(255,255,255,0.12) !important;
+            border-radius: 6px !important;
+            color: #F4F4F4 !important;
         }
 
         .section-label {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 1.6rem;
             letter-spacing: 4px;
-            color: #E8F0FF;
+            color: #FFFFFF;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -145,37 +82,37 @@ st.markdown(
             content: '';
             flex: 1;
             height: 1px;
-            background: linear-gradient(90deg, rgba(224,176,74,0.4), transparent);
+            background: linear-gradient(90deg, rgba(229, 9, 20, 0.95), rgba(229, 9, 20, 0.35), transparent);
             margin-left: 12px;
         }
 
         .movie-card-wrap {
             position: relative;
-            border-radius: 14px;
+            border-radius: 6px;
             overflow: hidden;
-            background: #0E1825;
-            border: 1px solid rgba(255,255,255,0.07);
-            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: #141414;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             height: 100%;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
         }
 
         .movie-card-wrap:hover {
-            transform: translateY(-10px) scale(1.03);
-            border-color: rgba(224, 176, 74, 0.4);
+            transform: translateY(-8px) scale(1.05);
+            border-color: rgba(229, 9, 20, 0.55);
             box-shadow:
-                0 24px 48px rgba(0,0,0,0.7),
-                0 0 0 1px rgba(224,176,74,0.15),
-                inset 0 1px 0 rgba(255,255,255,0.08);
+                0 18px 34px rgba(0, 0, 0, 0.62),
+                0 0 0 1px rgba(229, 9, 20, 0.25);
         }
 
         .movie-poster-box {
             width: 100%;
             aspect-ratio: 2 / 3;
             overflow: hidden;
-            background: #0A1019;
+            background: #0D0D0D;
             flex-shrink: 0;
         }
 
@@ -193,7 +130,7 @@ st.markdown(
 
         .movie-card-overlay {
             padding: 12px 14px 14px;
-            background: linear-gradient(180deg, #0E1825 0%, #0A1019 100%);
+            background: linear-gradient(180deg, rgba(20, 20, 20, 0.1) 0%, rgba(20, 20, 20, 0.95) 80%);
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -204,7 +141,7 @@ st.markdown(
             font-family: 'DM Sans', sans-serif;
             font-size: 0.88rem;
             font-weight: 600;
-            color: #D8E8FF;
+            color: #F5F5F5;
             line-height: 1.35;
             height: 2.4rem;
             overflow: hidden;
@@ -215,11 +152,52 @@ st.markdown(
             text-align: center;
         }
 
+        .play-link {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none !important;
+            background: #E50914;
+            color: #FFFFFF !important;
+            border: 1px solid rgba(229, 9, 20, 0.9);
+            border-radius: 4px;
+            padding: 8px 14px;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 700;
+            font-size: 0.78rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.25s ease;
+            box-shadow: 0 6px 16px rgba(229, 9, 20, 0.35);
+        }
+
+        .play-link:hover {
+            background: #FF1F2D;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(229, 9, 20, 0.45);
+        }
+
+        .play-link-disabled {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            background: #2A2A2A;
+            color: #9A9A9A;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            padding: 8px 14px;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 700;
+            font-size: 0.78rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
         .stButton > button {
-            background: linear-gradient(135deg, #E0B04A 0%, #C8882A 100%) !important;
-            color: #0A0C10 !important;
-            border: none !important;
-            border-radius: 10px !important;
+            background: #E50914 !important;
+            color: #FFFFFF !important;
+            border: 1px solid rgba(229, 9, 20, 0.9) !important;
+            border-radius: 4px !important;
             padding: 8px 14px !important;
             font-family: 'DM Sans', sans-serif !important;
             font-weight: 700 !important;
@@ -228,13 +206,13 @@ st.markdown(
             text-transform: uppercase !important;
             width: 100% !important;
             transition: all 0.25s ease !important;
-            box-shadow: 0 4px 16px rgba(224, 176, 74, 0.25) !important;
+            box-shadow: 0 6px 16px rgba(229, 9, 20, 0.35) !important;
         }
 
         .stButton > button:hover {
-            background: linear-gradient(135deg, #ECC060 0%, #D4983A 100%) !important;
+            background: #FF1F2D !important;
             transform: translateY(-2px) !important;
-            box-shadow: 0 8px 24px rgba(224, 176, 74, 0.45) !important;
+            box-shadow: 0 10px 24px rgba(229, 9, 20, 0.45) !important;
         }
 
         .stButton > button:active {
@@ -243,12 +221,12 @@ st.markdown(
 
         hr {
             border: 0 !important;
-            border-top: 1px solid rgba(255,255,255,0.06) !important;
+            border-top: 1px solid rgba(255,255,255,0.12) !important;
             margin: 1.5rem 0 !important;
         }
 
         .stSlider [data-baseweb="slider"] div[role="slider"] {
-            background-color: #E0B04A !important;
+            background-color: #E50914 !important;
         }
 
         .detail-title {
@@ -266,22 +244,22 @@ st.markdown(
             font-weight: 600;
             letter-spacing: 3px;
             text-transform: uppercase;
-            color: #E0B04A;
+            color: #E50914;
             margin-bottom: 6px;
         }
 
         .detail-meta-value {
             font-family: 'DM Sans', sans-serif;
             font-size: 0.95rem;
-            color: #8A9BB5;
+            color: #CFCFCF;
             font-weight: 300;
         }
 
         .genre-pill {
             display: inline-block;
-            background: rgba(224,176,74,0.1);
-            border: 1px solid rgba(224,176,74,0.25);
-            color: #E0B04A;
+            background: rgba(229,9,20,0.14);
+            border: 1px solid rgba(229,9,20,0.35);
+            color: #FF8A92;
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 0.78rem;
@@ -294,39 +272,39 @@ st.markdown(
             font-family: 'DM Sans', sans-serif;
             font-size: 1rem;
             font-weight: 300;
-            color: #8A9BB5;
+            color: #D1D1D1;
             line-height: 1.8;
         }
 
         .stAlert {
-            background: rgba(255,255,255,0.03) !important;
-            border: 1px solid rgba(255,255,255,0.08) !important;
+            background: rgba(35,35,35,0.92) !important;
+            border: 1px solid rgba(255,255,255,0.1) !important;
             border-radius: 12px !important;
-            color: #8A9BB5 !important;
+            color: #DDDDDD !important;
         }
 
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #080C14; }
+        ::-webkit-scrollbar-track { background: #090909; }
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #E0B04A, #7A4F1A);
+            background: linear-gradient(180deg, #E50914, #8C030B);
             border-radius: 4px;
         }
 
         .stSpinner > div {
-            border-top-color: #E0B04A !important;
+            border-top-color: #E50914 !important;
         }
 
         .back-btn .stButton > button {
-            background: rgba(255,255,255,0.05) !important;
-            color: #8A9BB5 !important;
-            border: 1px solid rgba(255,255,255,0.1) !important;
+            background: rgba(28,28,28,0.95) !important;
+            color: #F0F0F0 !important;
+            border: 1px solid rgba(255,255,255,0.14) !important;
             box-shadow: none !important;
             font-size: 0.8rem !important;
             letter-spacing: 1px !important;
         }
         .back-btn .stButton > button:hover {
-            background: rgba(255,255,255,0.09) !important;
-            color: #E8F0FF !important;
+            background: rgba(40,40,40,0.95) !important;
+            color: #FFFFFF !important;
             transform: none !important;
             box-shadow: none !important;
         }
@@ -339,7 +317,7 @@ st.markdown(
         .hero-accent {
             width: 60px;
             height: 4px;
-            background: linear-gradient(90deg, #E0B04A, #C8882A);
+            background: linear-gradient(90deg, #E50914, #8C030B);
             border-radius: 2px;
             margin-bottom: 10px;
         }
@@ -361,9 +339,61 @@ st.markdown(
             font-size: 0.78rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #3E5068;
+            color: #9F9F9F;
             margin-top: -0.5rem;
             margin-bottom: 1rem;
+        }
+
+        .top-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1.2rem 0 1.6rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-panel {
+            position: relative;
+            padding: 2.3rem 2.4rem;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 0.7rem 0 2rem;
+            background:
+                linear-gradient(90deg, rgba(0,0,0,0.86) 20%, rgba(0,0,0,0.58) 54%, rgba(0,0,0,0.15) 100%),
+                url('https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=1800&q=80');
+            background-size: cover;
+            background-position: center;
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.55);
+        }
+
+        .hero-kicker {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #E50914;
+            margin-bottom: 8px;
+        }
+
+        .hero-heading {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.4rem, 6vw, 5.5rem);
+            letter-spacing: 5px;
+            color: #FFFFFF;
+            line-height: 0.95;
+            margin: 0;
+        }
+
+        .hero-copy {
+            margin-top: 14px;
+            max-width: 560px;
+            font-family: 'DM Sans', sans-serif;
+            color: #D8D8D8;
+            font-size: 0.98rem;
+            line-height: 1.7;
+            font-weight: 300;
         }
 
     </style>
@@ -437,20 +467,13 @@ def poster_grid(cards, cols=6, key_prefix="grid"):
             with colset[c]:
                 st.markdown("<div class='movie-card-wrap'>", unsafe_allow_html=True)
 
-                if poster:
-                    st.markdown(
-                        f"<div class='movie-poster-box'>"
-                        f"<img src='{poster}' alt='{title}' loading='lazy' />"
-                        f"</div>",
-                        unsafe_allow_html=True,
-                    )
-                else:
-                    st.markdown(
-                        "<div class='movie-poster-box' style='display:flex;"
-                        "align-items:center;justify-content:center;"
-                        "color:#3E5068;font-size:2.5rem;'>🎬</div>",
-                        unsafe_allow_html=True,
-                    )
+                poster_src = poster or NO_POSTER_URL
+                st.markdown(
+                    f"<div class='movie-poster-box'>"
+                    f"<img src='{poster_src}' alt='{title}' loading='lazy' onerror=\"this.onerror=null;this.src='{NO_POSTER_URL}';\" />"
+                    f"</div>",
+                    unsafe_allow_html=True,
+                )
 
                 st.markdown(
                     f"<div class='movie-card-overlay'>"
@@ -459,9 +482,15 @@ def poster_grid(cards, cols=6, key_prefix="grid"):
                     unsafe_allow_html=True,
                 )
 
-                if st.button("▶ Watch", key=f"{key_prefix}_{r}_{c}_{idx}_{tmdb_id}"):
-                    if tmdb_id:
-                        goto_details(tmdb_id)
+                if tmdb_id:
+                    play_key = f"play_{key_prefix}_{int(tmdb_id)}_{r}_{c}_{idx}"
+                    if st.button("▶ Play", key=play_key):
+                        goto_details(int(tmdb_id))
+                else:
+                    st.markdown(
+                        "<span class='play-link-disabled'>Unavailable</span>",
+                        unsafe_allow_html=True,
+                    )
 
                 st.markdown("</div>", unsafe_allow_html=True)
 
@@ -530,115 +559,37 @@ def parse_tmdb_search_to_cards(data, keyword: str, limit: int = 24):
     return suggestions, cards
 
 
-with st.sidebar:
-    st.markdown(
-        "<div style='padding:0.5rem 0 1.5rem'>"
-        "<div style='font-family:Bebas Neue,sans-serif;font-size:1.8rem;"
-        "letter-spacing:6px;color:#E0B04A;'>DEVFLIX</div>"
-        "<div style='font-size:0.7rem;letter-spacing:3px;color:#3E5068;"
-        "text-transform:uppercase;margin-top:2px;'>Cinema Universe</div>"
-        "</div>",
-        unsafe_allow_html=True,
-    )
+category_options = {
+    "trending":    "🔥 Trending Now",
+    "popular":     "⭐ Most Popular",
+    "top_rated":   "🏆 Top Rated",
+    "now_playing": "🎬 Now Playing",
+    "upcoming":    "📅 Upcoming",
+}
 
-    if st.button("🏠  Home"):
-        goto_home()
-
-    st.markdown("---")
-
-    st.markdown(
-        "<div style='font-family:Bebas Neue,sans-serif;letter-spacing:3px;"
-        "color:#E8F0FF;font-size:1.1rem;margin-bottom:8px;'>BROWSE</div>",
-        unsafe_allow_html=True,
-    )
-
-    category_options = {
-        "trending":    "🔥  Trending Now",
-        "popular":     "⭐  Most Popular",
-        "top_rated":   "🏆  Top Rated",
-        "now_playing": "🎬  Now Playing",
-        "upcoming":    "📅  Upcoming",
-    }
-
+top_left, top_right = st.columns([3, 1], gap="large")
+with top_left:
     selected_category = st.selectbox(
         "Browse category",
         options=list(category_options.keys()),
         format_func=lambda x: category_options[x],
         index=0,
-        label_visibility="collapsed",
     )
-
-    st.markdown("---")
-
-    st.markdown(
-        "<div style='font-family:Bebas Neue,sans-serif;letter-spacing:3px;"
-        "color:#E8F0FF;font-size:1.1rem;margin-bottom:8px;'>LAYOUT</div>",
-        unsafe_allow_html=True,
-    )
-
-    grid_cols = st.slider(
-        "Columns per row",
-        min_value=3,
-        max_value=8,
-        value=6,
-        help="Adjust columns",
-    )
-
-    st.markdown("---")
-
-    st.markdown(
-        "<div style='font-size:0.75rem;color:smokywhite;margin-top:1.5rem;"
-        "line-height:1.6;'>Powered by TMDB API.<br>Crafted by Devflix.</div>",
-        unsafe_allow_html=True,
-    )
+with top_right:
+    grid_cols = st.selectbox("Cards per row", options=[4, 5, 6, 7, 8], index=2)
 
 
 if st.session_state.view == "home":
     st.markdown(
-        "<div style='margin-bottom:0.2rem'>"
-        "<div class='hero-accent'></div>"
-        "<div class='devflix-title'>DEV<span>FLIX</span></div>"
-        "<div class='devflix-tagline'>Your Personal Cinema Universe</div>"
+        "<div class='hero-panel'>"
+        "<div class='hero-kicker'>Now Streaming</div>"
+        "<h1 class='hero-heading'>DEV<span style='color:#E50914'>FLIX</span></h1>"
+        "<div class='hero-copy'>Dive into a dark cinematic experience with trending blockbusters, iconic classics, and handpicked recommendations crafted for your next binge session.</div>"
         "</div>",
         unsafe_allow_html=True,
     )
 
-    st.markdown("<div style='height:1.5rem'></div>", unsafe_allow_html=True)
-
-    typed = st.text_input(
-        "Search movies",
-        placeholder="🔍   Search movies — Avengers, Batman, Love Story...",
-        label_visibility="collapsed",
-    )
-
-    st.markdown("<hr>", unsafe_allow_html=True)
-
-    if typed.strip():
-        if len(typed.strip()) < 2:
-            st.caption("Type at least 2 characters.")
-        else:
-            data, err = api_get_json("/tmdb/search", params={"query": typed.strip()})
-            if err or data is None:
-                st.error(f"Search failed: {err}")
-            else:
-                suggestions, cards = parse_tmdb_search_to_cards(data, typed.strip(), limit=24)
-
-                if suggestions:
-                    labels   = ["— Select a movie —"] + [s[0] for s in suggestions]
-                    selected = st.selectbox("Movie suggestions", labels, index=0, label_visibility="collapsed")
-                    if selected != "— Select a movie —":
-                        label_to_id = {s[0]: s[1] for s in suggestions}
-                        goto_details(label_to_id[selected])
-                else:
-                    st.info("No suggestions found. Try another keyword.")
-
-                st.markdown(
-                    f"<div class='section-label'>Search Results</div>"
-                    f"<div class='rec-subhead'>{len(cards)} movies found for &ldquo;{typed}&rdquo;</div>",
-                    unsafe_allow_html=True,
-                )
-                poster_grid(cards, cols=grid_cols, key_prefix="search_results")
-        st.stop()
+    st.markdown("<div class='top-controls'></div>", unsafe_allow_html=True)
 
     cat_label = category_options[selected_category].replace("  ", " ")
     st.markdown(
@@ -701,15 +652,8 @@ elif st.session_state.view == "details":
 
     with poster_col:
         st.markdown("<div class='poster-shadow'>", unsafe_allow_html=True)
-        if data.get("poster_url"):
-            st.image(data["poster_url"], use_column_width=True)
-        else:
-            st.markdown(
-                "<div style='background:#0E1825;aspect-ratio:2/3;display:flex;"
-                "align-items:center;justify-content:center;color:#3E5068;"
-                "font-size:3rem;border-radius:16px;'>🎬</div>",
-                unsafe_allow_html=True,
-            )
+        detail_poster = data.get("poster_url") or NO_POSTER_URL
+        st.image(detail_poster, use_column_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
     with details_col:
